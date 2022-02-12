@@ -105,8 +105,6 @@ public class InputHandler : MonoBehaviour
         }
         public bool pressed {
             get {
-                if (down)
-                    Debug.Log($"{down}, {firstFrame}");
                 return down && firstFrame;
             }
         }

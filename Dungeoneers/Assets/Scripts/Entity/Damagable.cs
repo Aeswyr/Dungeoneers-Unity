@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Damagable : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
+    [SerializeField] private Rigidbody2D rbody;
+
     // Start is called before the first frame update
     void Start()
     {
