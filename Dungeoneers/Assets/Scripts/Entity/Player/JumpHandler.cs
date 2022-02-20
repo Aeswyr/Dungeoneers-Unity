@@ -5,7 +5,7 @@ using UnityEngine;
 public class JumpHandler : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rbody;
-    [SerializeField] private InputHandler input;
+    private InputHandler input;
     [Header("Jump Info")]
     [SerializeField] private float velocityScalar;
     [SerializeField] private float maxRisingTime, maxTime;
@@ -14,6 +14,9 @@ public class JumpHandler : MonoBehaviour
     private float timeStamp = -100;
     private bool jumping, starting;
 
+    public void LinkInputs(InputHandler input) {
+        this.input = input;
+    }
     void FixedUpdate()
     {
         if (starting && (input.jump.released || Time.time - timeStamp > maxRisingTime))

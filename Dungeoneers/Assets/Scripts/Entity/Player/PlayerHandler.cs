@@ -6,7 +6,7 @@ public class PlayerHandler : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody2D rbody;
-    [SerializeField] private InputHandler input;
+    private InputHandler input;
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private JumpHandler jump;
     [SerializeField] private GroundedCheck ground;
@@ -57,8 +57,6 @@ public class PlayerHandler : MonoBehaviour
             }
             animator.SetInteger("attack_id", attack_id);
         }
-
-
     }
 
     void LateUpdate() {
@@ -98,5 +96,10 @@ public class PlayerHandler : MonoBehaviour
         SetInterruptable();
         SetCancellable();
         attack_id = -1;
+    }
+
+    public void LinkInputs(InputHandler input) {
+        this.input = input;
+        jump.LinkInputs(input);
     }
 }

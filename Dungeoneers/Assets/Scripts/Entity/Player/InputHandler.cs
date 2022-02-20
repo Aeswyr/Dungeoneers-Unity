@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
+    long frameCount;
     public float dir {
         get;
         private set;
@@ -51,14 +52,15 @@ public class InputHandler : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        this.m_jump.Reset();
-        this.m_primary.Reset();
-        this.m_skill1.Reset();
-        this.m_skill2.Reset();
-        this.m_skill3.Reset();
-        this.m_skill4.Reset();
-        this.m_interact.Reset();
-        this.m_menu.Reset();
+        this.m_jump.Reset(frameCount);
+        this.m_primary.Reset(frameCount);
+        this.m_skill1.Reset(frameCount);
+        this.m_skill2.Reset(frameCount);
+        this.m_skill3.Reset(frameCount);
+        this.m_skill4.Reset(frameCount);
+        this.m_interact.Reset(frameCount);
+        this.m_menu.Reset(frameCount);
+        frameCount++;
     }
 
     public void Move(InputAction.CallbackContext ctx) {
@@ -66,38 +68,39 @@ public class InputHandler : MonoBehaviour
     }
 
     public void Jump(InputAction.CallbackContext ctx) {
-        this.m_jump.Set(ctx);
+        this.m_jump.Set(ctx, frameCount);
     }
 
     public void Primary(InputAction.CallbackContext ctx) {
-        this.m_primary.Set(ctx);
+        this.m_primary.Set(ctx, frameCount);
     }
 
     public void Skill1(InputAction.CallbackContext ctx) {
-        this.m_skill1.Set(ctx);
+        this.m_skill1.Set(ctx, frameCount);
     }
 
     public void Skill2(InputAction.CallbackContext ctx) {
-        this.m_skill2.Set(ctx);
+        this.m_skill2.Set(ctx, frameCount);
     }
 
     public void Skill3(InputAction.CallbackContext ctx) {
-        this.m_skill3.Set(ctx);
+        this.m_skill3.Set(ctx, frameCount);
     }
 
     public void Skill4(InputAction.CallbackContext ctx) {
-        this.m_skill4.Set(ctx);
+        this.m_skill4.Set(ctx, frameCount);
     }
 
     public void Interact(InputAction.CallbackContext ctx) {
-        this.m_interact.Set(ctx);
+        this.m_interact.Set(ctx, frameCount);
     }
 
     public void Menu(InputAction.CallbackContext ctx) {
-        this.m_menu.Set(ctx);
+        this.m_menu.Set(ctx, frameCount);
     }
 
     public struct ButtonState {
+        private long frame;
         private bool firstFrame;
         public bool down {
             get;
@@ -114,12 +117,14 @@ public class InputHandler : MonoBehaviour
             }
         }
 
-        public void Set(InputAction.CallbackContext ctx) {
+        public void Set(InputAction.CallbackContext ctx, long frame) {
+            this.frame = frame;
             down = !ctx.canceled;             
             firstFrame = true;
         }
-        public void Reset() {
-            firstFrame = false;
+        public void Reset(long frame) {
+            if (frame != this.frame)
+                firstFrame = false;
         }
     }
 }
