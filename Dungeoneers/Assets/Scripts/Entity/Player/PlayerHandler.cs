@@ -10,10 +10,12 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private JumpHandler jump;
     [SerializeField] private GroundedCheck ground;
-    [SerializeField] private float speed;
+    [SerializeField] private MovementHandler move;
+    [SerializeField] private GameObject spellBrandPrefab;
+    [SerializeField] private GameObject attackSlashPrefab;
 
-    private bool grounded, running, jumping, cancellable, interruptable;
-    private int attack_id = -1;
+    private bool grounded, running, jumping, cancellable, interruptable, movable = true;
+    private int attack_id = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -35,27 +37,35 @@ public class PlayerHandler : MonoBehaviour
             jump.ForceLanding();
             animator.SetTrigger("land");
         }
-            
-
+        
+        if (movable && input.move.released)
+            move.StartDeceleration();
+        if (input.move.pressed)
+            move.StartAcceleration(input.dir);
         if (interruptable && input.dir != 0) {
-            rbody.velocity = new Vector2(speed * input.dir, rbody.velocity.y);
+            move.UpdateMovement(input.dir);
             sprite.flipX = input.dir < 0;
             running = true;
         }
-        if (interruptable && grounded && input.jump.pressed) {
+
+        if (movable && interruptable && grounded && input.jump.pressed) {
             rbody.velocity = new Vector2(rbody.velocity.x, 0.15f);
             jump.StartJump();
             animator.SetTrigger("jump");
             jumping = true;
         }
-        if (grounded && cancellable && input.primary.pressed) {
+        if (cancellable && input.primary.pressed) {
             animator.SetTrigger("attack");
-            if (attack_id == 0) {
-                attack_id = 1;
-            } else {
-                attack_id = 0;
-            }
+            GameObject smear = Instantiate(attackSlashPrefab, transform);
+            smear.GetComponent<SpriteRenderer>().flipX = sprite.flipX;
+            smear.GetComponent<Animator>().SetInteger("attack_id", attack_id);
             animator.SetInteger("attack_id", attack_id);
+            attack_id  = (attack_id + 1) % 2;
+        }
+        if (grounded && cancellable && input.skill1.pressed) {
+            animator.SetTrigger("attack");
+            animator.SetInteger("attack_id", 2);
+            Instantiate(spellBrandPrefab, transform.position, spellBrandPrefab.transform.rotation);
         }
     }
 
@@ -90,12 +100,22 @@ public class PlayerHandler : MonoBehaviour
     private void ToAttack() {
         UnsetInterruptable();
         UnsetCancellable();
+        LockMovement();
     }
 
     private void FromAttack() {
         SetInterruptable();
         SetCancellable();
-        attack_id = -1;
+        UnlockMovement();
+    }
+
+    private void LockMovement() {
+        movable = false;
+        move.StartDeceleration();
+    }
+
+    private void UnlockMovement() {
+        movable = true;
     }
 
     public void LinkInputs(InputHandler input) {

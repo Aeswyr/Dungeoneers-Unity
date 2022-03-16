@@ -11,6 +11,11 @@ public class CharacterCreationPanelController : MonoBehaviour
    [SerializeField] private GameObject statPointPrefab;
    [SerializeField] private int statPoints;
    [SerializeField] private GameObject readyButton;
+   [SerializeField] private GameObject selectedRoot;
+   public GameObject SelectedRoot {
+       get {return selectedRoot;}
+   }
+   
    private Stack<GameObject> points = new Stack<GameObject>();
     void Start() {
             for(int i = 0; i < 4; i++) {

@@ -155,6 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2609542771537562673}
   - component: {fileID: 307810949362155125}
+  - component: {fileID: 8250790070566887041}
   m_Layer: 0
   m_Name: CharCreationPanel
   m_TagString: Untagged
@@ -204,12 +205,34 @@ MonoBehaviour:
   statNames:
   - MIG
   - VIG
-  - WIS
+  - WIT
   - FIN
   statPointHolder: {fileID: 3531993297980638443}
   statPointPrefab: {fileID: 2213501649151389214, guid: 53a53ea1a53c1df47a8ffc70e6376977, type: 3}
   statPoints: 10
   readyButton: {fileID: 4143817710323107914}
+  selectedRoot: {fileID: 3790831775040021347}
+--- !u!223 &8250790070566887041
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667409381633030875}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &3531993297980638443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1262,6 +1285,11 @@ PrefabInstance:
 --- !u!224 &3154067285242258702 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4974641365505074889, guid: 859179c405a9e594c82f95c4a2afe34f, type: 3}
+  m_PrefabInstance: {fileID: 7983763434387751879}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3790831775040021347 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6509878361964765348, guid: 859179c405a9e594c82f95c4a2afe34f, type: 3}
   m_PrefabInstance: {fileID: 7983763434387751879}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4099761747031222466 stripped

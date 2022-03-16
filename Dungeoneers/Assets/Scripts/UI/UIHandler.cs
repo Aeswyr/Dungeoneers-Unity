@@ -11,6 +11,7 @@ public class UIHandler : MonoBehaviour
     [SerializeField] private MenuType currentMenu;
     [SerializeField] private GameObject currentMenuObj;
     [SerializeField] private GameObject[] menuPrefabs;
+    [SerializeField] private GameObject eventSystem;
 
     public void NextMenu(MenuType type) {
         menuStack.Push(currentMenu);
@@ -32,6 +33,10 @@ public class UIHandler : MonoBehaviour
             return null;
 
         return (menuPrefabs[(int)type - 1]);
+    }
+
+    public void ToggleMasterEventSystem(bool val) {
+        eventSystem.SetActive(val);
     }
 }
 

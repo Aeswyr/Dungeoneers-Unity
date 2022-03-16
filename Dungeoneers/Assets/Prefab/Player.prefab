@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 8775466769019326513}
   - component: {fileID: 6502356160869994863}
   - component: {fileID: 4619972418595560582}
+  - component: {fileID: 4081719153775258091}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -211,6 +212,41 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 656e80b3-99bf-4aa9-9654-e62075418ac7
     m_ActionName: PlayerControls/Menu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c641b471-4272-4f85-865d-44220754a735
+    m_ActionName: UI/Navigate[/Logitech Logitech Dual Action/stick/up,/Logitech Logitech
+      Dual Action/stick/down,/Logitech Logitech Dual Action/stick/left,/Logitech
+      Logitech Dual Action/stick/right,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow,/Logitech
+      Logitech Dual Action/hat]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: aba8a380-0126-4082-949d-13c8e3add356
+    m_ActionName: UI/Submit[/Keyboard/enter,/Logitech Logitech Dual Action/trigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 30e1560f-f3a2-47da-bb72-b777f93ef286
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d19f99b6-04b5-43dc-93dd-f2dda144b2a7
+    m_ActionName: UI/Point[/Mouse/position,/Pen/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 951ebc98-1a81-4fb9-81e6-b9656c46ab3e
+    m_ActionName: UI/Click[/Mouse/leftButton,/Pen/tip]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ae898885-7ce7-44aa-acc6-1a1c624df0a1
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fbbeacbd-1542-47cf-b443-c6d192154754
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 02a8bbab-b0a7-429e-a093-be0a9e0e14c7
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls
@@ -269,7 +305,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bdd2c19124bbd8f4f97896f4291916cd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7199635dda337a0448f91960c9aab3bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -313,7 +349,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 6
+  m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 13
   m_Material: {fileID: 6200000, guid: 2638beefb68f97d4fa5cce6164583a43, type: 2}
@@ -334,18 +370,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.5}
+  m_Offset: {x: 0, y: -0.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 4}
+    oldSize: {x: 3, y: 3}
     newSize: {x: 2, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 3}
+  m_Size: {x: 1, y: 2.5}
   m_EdgeRadius: 0
 --- !u!114 &8775466769019326513
 MonoBehaviour:
@@ -361,11 +397,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 7399956678605569333}
   rbody: {fileID: 4964412095869376170}
-  input: {fileID: -7578202177442116744}
   sprite: {fileID: 2857639703292915534}
   jump: {fileID: 4619972418595560582}
   ground: {fileID: 6502356160869994863}
-  speed: 16
+  move: {fileID: 4081719153775258091}
+  spellBrandPrefab: {fileID: 3839987580205069689, guid: bc7b679d572447043bcc649f0fcb6594, type: 3}
+  attackSlashPrefab: {fileID: 4152302051997321614, guid: 9124036bb163cb04eb4adfb84a8b04b2, type: 3}
 --- !u!114 &6502356160869994863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,7 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorDetectDistance: 0.1
-  floorDetectOffset: {x: 0, y: -2}
+  floorDetectOffset: {x: 0, y: -1.5}
   footOffset: {x: -0.45, y: 0}
   floorDetectMask:
     serializedVersion: 2
@@ -397,7 +434,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rbody: {fileID: 4964412095869376170}
-  input: {fileID: -7578202177442116744}
   velocityScalar: 40
   maxRisingTime: 0.35
   maxTime: 0.5
@@ -434,6 +470,70 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4081719153775258091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2731996359561386074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6130296c13d0a0f44ad78a42317a8153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 13
+  rbody: {fileID: 4964412095869376170}
+  accelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 5.6215854
+      outSlope: 5.6215854
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.0397351
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  accelerationTime: 0.5
+  decelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -6.085351
+      outSlope: -6.085351
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.024006622
+    - serializedVersion: 3
+      time: 0.5
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  decelerationTime: 0.5
 --- !u!1 &3121701816196546081
 GameObject:
   m_ObjectHideFlags: 0
