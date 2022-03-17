@@ -33,9 +33,14 @@ public class MovementHandler : MonoBehaviour
     public void StartDeceleration() {
         moving = false;
         timestamp = Time.time + decelerationTime;
-        decelSpeed = speed;
-        if (Mathf.Abs(rbody.velocity.x) < decelSpeed)
-            decelSpeed = Mathf.Abs(rbody.velocity.x);
+        decelSpeed = Mathf.Abs(rbody.velocity.x);
+    }
+
+    public void StartDeceleration(float dir) {
+        moving = false;
+        this.dir = dir;
+        timestamp = Time.time + decelerationTime;
+        decelSpeed = Mathf.Abs(rbody.velocity.x);
     }
 
     public void StartAcceleration(float dir) {

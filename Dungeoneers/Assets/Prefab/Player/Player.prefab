@@ -38,7 +38,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6368241303122747860}
   - {fileID: 4943945203396627992}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -381,7 +380,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.5}
+  m_Size: {x: 2, y: 2.5}
   m_EdgeRadius: 0
 --- !u!114 &8775466769019326513
 MonoBehaviour:
@@ -401,8 +400,11 @@ MonoBehaviour:
   jump: {fileID: 4619972418595560582}
   ground: {fileID: 6502356160869994863}
   move: {fileID: 4081719153775258091}
+  hurtbox: {fileID: 7802853946229819825}
   spellBrandPrefab: {fileID: 3839987580205069689, guid: bc7b679d572447043bcc649f0fcb6594, type: 3}
   attackSlashPrefab: {fileID: 4152302051997321614, guid: 9124036bb163cb04eb4adfb84a8b04b2, type: 3}
+  fireballPrefab: {fileID: 2524015272951721901, guid: 3851eac99b3145d4ca950916e319f3f3, type: 3}
+  starspearPrefab: {fileID: 5768441351422831852, guid: 640856a86eeaa5f4fbbb5cfe9aec6477, type: 3}
 --- !u!114 &6502356160869994863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,7 +419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorDetectDistance: 0.1
   floorDetectOffset: {x: 0, y: -1.5}
-  footOffset: {x: -0.45, y: 0}
+  footOffset: {x: 0.95, y: 0}
   floorDetectMask:
     serializedVersion: 2
     m_Bits: 128
@@ -534,64 +536,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   decelerationTime: 0.5
---- !u!1 &3121701816196546081
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6368241303122747860}
-  - component: {fileID: 4205515496200809572}
-  m_Layer: 0
-  m_Name: Hitbox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6368241303122747860
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121701816196546081}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4027622071798514187}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &4205515496200809572
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121701816196546081}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2}
-  m_EdgeRadius: 0
 --- !u!1 &3616988719530025984
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,7 +546,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4943945203396627992}
   - component: {fileID: 7802853946229819825}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hurtbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +566,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4027622071798514187}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &7802853946229819825
 BoxCollider2D:
