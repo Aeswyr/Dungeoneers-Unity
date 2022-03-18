@@ -66,8 +66,8 @@ public class PlayerHandler : MonoBehaviour
         if (cancellable && singleInput && input.primary.pressed) {
             animator.SetTrigger("attack");
             GameObject smear = Instantiate(attackSlashPrefab, transform);
-            smear.GetComponent<SpriteRenderer>().flipX = sprite.flipX;
-            smear.GetComponent<Animator>().SetInteger("attack_id", attack_id);
+            smear.GetComponent<PrimaryAttack>().Fire(facing, attack_id, this);
+            smear.GetComponent<Owner>().SetOwner(hurtbox.gameObject);
             animator.SetInteger("attack_id", attack_id);
             attack_id  = (attack_id + 1) % 2;
             singleInput = false;
@@ -75,8 +75,7 @@ public class PlayerHandler : MonoBehaviour
         if (grounded && cancellable && singleInput && input.skill1.pressed) {
             animator.SetTrigger("attack");
             animator.SetInteger("attack_id", 2);
-            GameObject brand = Instantiate(spellBrandPrefab, transform.position, spellBrandPrefab.transform.rotation);
-            brand.GetComponent<Animator>().SetInteger("id", 0);
+            CreateBrand(0);
 
             GameObject attack = Instantiate(fireballPrefab, transform.position + new Vector3(facing * 0.25f, 0, 0), fireballPrefab.transform.rotation);
             attack.GetComponent<ProjectileController>().Fire(facing);
@@ -86,9 +85,7 @@ public class PlayerHandler : MonoBehaviour
         if (grounded && cancellable && singleInput && input.skill2.pressed) {
             animator.SetTrigger("attack");
             animator.SetInteger("attack_id", 2);
-            GameObject brand = Instantiate(spellBrandPrefab, transform.position, spellBrandPrefab.transform.rotation);
-            brand.GetComponent<SpriteRenderer>().flipX = sprite.flipX;
-            brand.GetComponent<Animator>().SetInteger("id", 1);
+            CreateBrand(1);
 
             GameObject attack = Instantiate(starspearPrefab, transform.position + new Vector3(facing * 3, 1.5f, 0), starspearPrefab.transform.rotation);
             attack.GetComponent<ProjectileController>().Fire(facing);
@@ -163,5 +160,27 @@ public class PlayerHandler : MonoBehaviour
     public void LinkInputs(InputHandler input) {
         this.input = input;
         jump.LinkInputs(input);
+    }
+
+    private void CreateBrand(int id) {
+        GameObject brand = Instantiate(spellBrandPrefab, transform.position, spellBrandPrefab.transform.rotation);
+        brand.GetComponent<SpriteRenderer>().flipX = sprite.flipX;
+        brand.GetComponent<Animator>().SetInteger("id", id);
+    }
+
+    public void DoKnockback(Vector2 knockback, float hitpause) {
+        StartCoroutine(Hitpause(hitpause));
+        StartCoroutine(Knockback(knockback, hitpause));
+    }
+
+    IEnumerator Hitpause(float duration) {
+        animator.speed = 0;
+        yield return new WaitForSeconds(duration);
+        animator.speed = 1;
+    }
+    IEnumerator Knockback(Vector2 knockback, float delay) {
+        move.Zero();
+        yield return new WaitForSeconds(delay);
+        move.ApplyKnockback(knockback, (int)(knockback.x / Mathf.Abs(knockback.x)));
     }
 }

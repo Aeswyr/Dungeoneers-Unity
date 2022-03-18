@@ -41,6 +41,33 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: World_Back
+    uniqueID: 2790496773
+    locked: 0
+  - name: Decal_Back
+    uniqueID: 881799489
+    locked: 0
+  - name: VFX_Back
+    uniqueID: 4081269241
+    locked: 0
+  - name: World
+    uniqueID: 3210364817
+    locked: 0
+  - name: Entity
+    uniqueID: 1056937781
+    locked: 0
+  - name: Projectile
+    uniqueID: 4208549963
+    locked: 0
+  - name: Decal_Fore
+    uniqueID: 124473933
+    locked: 0
+  - name: Light
+    uniqueID: 2941892329
+    locked: 0
+  - name: VFX_Fore
+    uniqueID: 3729097653
+    locked: 0
   - name: UI
     uniqueID: 701005857
     locked: 0
