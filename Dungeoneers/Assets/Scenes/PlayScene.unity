@@ -134,6 +134,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level_Test
       objectReference: {fileID: 0}
+    - target: {fileID: 5508769953412659084, guid: 64325311ad6a420449a8af1f65b14d63, type: 3}
+      propertyPath: m_AnimatedTiles.Array.data[0].second.m_AnimationSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5508769953412659084, guid: 64325311ad6a420449a8af1f65b14d63, type: 3}
+      propertyPath: m_AnimatedTiles.Array.data[1].second.m_AnimationSpeed
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 8629938450626921756, guid: 64325311ad6a420449a8af1f65b14d63, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -233,10 +241,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4160671098823967156, guid: 2f41b9d08eecb124ea595a78e7d6e501, type: 3}
       propertyPath: m_Name
-      value: PlayerManager
+      value: GameMaster
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f41b9d08eecb124ea595a78e7d6e501, type: 3}
+--- !u!1001 &1325544474
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4918149690099303144, guid: d6610c6253a7692428b4fca2482afcb7, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918149690099303144, guid: d6610c6253a7692428b4fca2482afcb7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918149690099303144, guid: d6610c6253a7692428b4fca2482afcb7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918149690099303144, guid: d6610c6253a7692428b4fca2482afcb7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918149690099303144, guid: d6610c6253a7692428b4fca2482afcb7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918149690099303144, guid: d6610c6253a7692428b4fca2482afcb7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918149690099303144, guid: d6610c6253a7692428b4fca2482afcb7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918149690099303144, guid: d6610c6253a7692428b4fca2482afcb7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918149690099303144, guid: d6610c6253a7692428b4fca2482afcb7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918149690099303144, guid: d6610c6253a7692428b4fca2482afcb7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918149690099303144, guid: d6610c6253a7692428b4fca2482afcb7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6825240090293104050, guid: d6610c6253a7692428b4fca2482afcb7, type: 3}
+      propertyPath: m_Name
+      value: AncientRottedClayman
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6610c6253a7692428b4fca2482afcb7, type: 3}
 --- !u!1001 &5430429418227765204
 PrefabInstance:
   m_ObjectHideFlags: 0

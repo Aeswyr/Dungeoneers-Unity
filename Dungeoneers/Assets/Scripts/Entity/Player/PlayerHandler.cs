@@ -26,6 +26,7 @@ public class PlayerHandler : MonoBehaviour
     {
         SetInterruptable();
         SetCancellable();
+        GameMaster.Instance.RegisterPlayer(this);
     }
 
     // Update is called once per frame

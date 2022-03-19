@@ -65,5 +65,9 @@ public class MovementHandler : MonoBehaviour
         moving = false;
     }
 
+    public bool IsMoving() {
+        return rbody.velocity.x != 0;
+    }
+
 
 }
