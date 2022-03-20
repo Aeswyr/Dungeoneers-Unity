@@ -27,6 +27,7 @@ public class PlayerHandler : MonoBehaviour
         SetInterruptable();
         SetCancellable();
         GameMaster.Instance.RegisterPlayer(this);
+        transform.position = new Vector3(-15, 5, 0);
     }
 
     // Update is called once per frame

@@ -7,6 +7,8 @@ public class RottedClaymanController : MonoBehaviour
     [SerializeField] private Rigidbody2D rbody;
     [SerializeField] private GroundedCheck ground;
     [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private Animator animator;
+    bool attacking = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,16 +26,22 @@ public class RottedClaymanController : MonoBehaviour
                 dir = Mathf.Sign(player.transform.position.x - transform.position.x);
             }
         }
-        if (dist > 4) {
+
+        if (dir != 0 && !attacking)
+            sprite.flipX = dir < 0;   
+
+        if (dist > 4 && !attacking) {
             rbody.velocity = new Vector2(dir, 0);
         } else {
             rbody.velocity = Vector2.zero;
+            if (!attacking) {
+                attacking = true;
+                animator.SetTrigger("quickattack");
+            }
         }
+    }
 
-        if (dir != 0)
-            sprite.flipX = dir < 0;
-
-
-            
+    private void ResetAttacking() {
+        attacking = false;
     }
 }
