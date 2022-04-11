@@ -401,6 +401,7 @@ MonoBehaviour:
   ground: {fileID: 6502356160869994863}
   move: {fileID: 4081719153775258091}
   hurtbox: {fileID: 7802853946229819825}
+  hurtboxHandler: {fileID: 6008305705936381370}
   spellBrandPrefab: {fileID: 3839987580205069689, guid: bc7b679d572447043bcc649f0fcb6594, type: 3}
   attackSlashPrefab: {fileID: 4152302051997321614, guid: 9124036bb163cb04eb4adfb84a8b04b2, type: 3}
   fireballPrefab: {fileID: 2524015272951721901, guid: 3851eac99b3145d4ca950916e319f3f3, type: 3}
@@ -546,6 +547,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4943945203396627992}
   - component: {fileID: 7802853946229819825}
+  - component: {fileID: 6008305705936381370}
   m_Layer: 9
   m_Name: Hurtbox
   m_TagString: Untagged
@@ -594,3 +596,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6008305705936381370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3616988719530025984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5fe34ada6897ab4c8624574a4d7ce5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8775466769019326513}
+        m_TargetAssemblyTypeName: PlayerHandler, Assembly-CSharp
+        m_MethodName: OnHit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

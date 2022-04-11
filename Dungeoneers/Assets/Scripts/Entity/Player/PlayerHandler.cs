@@ -12,14 +12,18 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] private GroundedCheck ground;
     [SerializeField] private MovementHandler move;
     [SerializeField] private Collider2D hurtbox;
+    [SerializeField] private HurtboxHandler hurtboxHandler;
     [SerializeField] private GameObject spellBrandPrefab;
     [SerializeField] private GameObject attackSlashPrefab;
     [SerializeField] private GameObject fireballPrefab;
     [SerializeField] private GameObject starspearPrefab;
     private int facing = 1;
 
-    private bool grounded, running, jumping, cancellable, interruptable, movable = true, singleInput;
+    private bool grounded, running, jumping, cancellable, interruptable, movable = true, countering, canCounter, lastDown;
+    private bool immune = false;
     private int attack_id = 0;
+
+    private float down = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -27,13 +31,12 @@ public class PlayerHandler : MonoBehaviour
         SetInterruptable();
         SetCancellable();
         GameMaster.Instance.RegisterPlayer(this);
-        transform.position = new Vector3(-15, 5, 0);
+        transform.position = new Vector3(-15, 0, 0);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        singleInput = true;
         running = false;
         jumping = false;
         bool lastgrounded = grounded;
@@ -44,6 +47,13 @@ public class PlayerHandler : MonoBehaviour
             UpdateFacing();
         }
 
+        if ((landing && Time.time < down) || lastDown && Time.time >= down)
+            move.Zero();
+        if (lastDown && Time.time >= down)
+            immune = false;
+        animator.SetBool("down", Time.time < down);
+        
+
         if (landing) {
             jump.ForceLanding();
             animator.SetTrigger("land");
@@ -51,30 +61,49 @@ public class PlayerHandler : MonoBehaviour
         
         if (movable && input.move.released)
             move.StartDeceleration();
-        if (input.move.pressed)
+        if (movable && input.move.pressed)
             move.StartAcceleration(input.dir);
         if (interruptable && input.dir != 0) {
             move.UpdateMovement(input.dir);
             running = true;
         }
 
-        if (movable &&  interruptable && grounded && singleInput && input.jump.pressed) {
+        if (canCounter && (input.primary.pressed || input.skill1.pressed)) {
+            animator.SetTrigger("attack");
+            animator.SetInteger("attack_id", 5);
+            GameObject smear = Instantiate(attackSlashPrefab, transform);
+            smear.GetComponent<PrimaryAttack>().Fire(facing, 2, this);
+            smear.GetComponent<Owner>().SetOwner(hurtbox.gameObject);
+            smear.GetComponent<DestroyAfterDelay>().SetLifetime(5f/12);
+            canCounter = false;
+            countering = false;
+        }
+        else if (movable &&  interruptable && grounded && input.jump.pressed) {
             rbody.velocity = new Vector2(rbody.velocity.x, 0.15f);
             jump.StartJump();
             animator.SetTrigger("jump");
             jumping = true;
-            singleInput = false;
+
         }
-        if (cancellable && singleInput && input.primary.pressed) {
+        else if (cancellable && input.primary.pressed) {
             animator.SetTrigger("attack");
             GameObject smear = Instantiate(attackSlashPrefab, transform);
             smear.GetComponent<PrimaryAttack>().Fire(facing, attack_id, this);
             smear.GetComponent<Owner>().SetOwner(hurtbox.gameObject);
             animator.SetInteger("attack_id", attack_id);
             attack_id  = (attack_id + 1) % 2;
-            singleInput = false;
         }
-        if (grounded && cancellable && singleInput && input.skill1.pressed) {
+        else if (cancellable && input.skill1.pressed) {
+            if (false) {
+                animator.SetTrigger("attack");
+                animator.SetInteger("attack_id", 3);
+            } else {
+                animator.SetTrigger("attack");
+                animator.SetInteger("attack_id", 4);
+            }
+
+        }
+        else if (grounded && cancellable && input.skill2.pressed) {
             animator.SetTrigger("attack");
             animator.SetInteger("attack_id", 2);
             CreateBrand(0);
@@ -82,9 +111,8 @@ public class PlayerHandler : MonoBehaviour
             GameObject attack = Instantiate(fireballPrefab, transform.position + new Vector3(facing * 0.25f, 0, 0), fireballPrefab.transform.rotation);
             attack.GetComponent<ProjectileController>().Fire(facing);
             attack.GetComponent<Owner>().SetOwner(hurtbox.gameObject);
-            singleInput = false;
         }
-        if (grounded && cancellable && singleInput && input.skill2.pressed) {
+        else if (grounded && cancellable && input.skill3.pressed) {
             animator.SetTrigger("attack");
             animator.SetInteger("attack_id", 2);
             CreateBrand(1);
@@ -92,8 +120,8 @@ public class PlayerHandler : MonoBehaviour
             GameObject attack = Instantiate(starspearPrefab, transform.position + new Vector3(facing * 3, 1.5f, 0), starspearPrefab.transform.rotation);
             attack.GetComponent<ProjectileController>().Fire(facing);
             attack.GetComponent<Owner>().SetOwner(hurtbox.gameObject);
-            singleInput = false;
         }
+        lastDown = Time.time < down;
     }
 
     void LateUpdate() {
@@ -141,6 +169,7 @@ public class PlayerHandler : MonoBehaviour
         SetInterruptable();
         SetCancellable();
         UnlockMovement();
+        canCounter = false;
     }
 
     private void LockMovement() {
@@ -159,6 +188,11 @@ public class PlayerHandler : MonoBehaviour
         move.StartDeceleration(facing);
     }
 
+    private void SkillMovement(float amount) {
+        rbody.velocity = new Vector2(amount * facing, rbody.velocity.y);
+        move.StartDeceleration(facing);
+    }
+
     public void LinkInputs(InputHandler input) {
         this.input = input;
         jump.LinkInputs(input);
@@ -170,9 +204,9 @@ public class PlayerHandler : MonoBehaviour
         brand.GetComponent<Animator>().SetInteger("id", id);
     }
 
-    public void DoKnockback(Vector2 knockback, float hitpause) {
+    public void DoKnockback(Vector2 knockback, float hitpause, bool dampened = true) {
         StartCoroutine(Hitpause(hitpause));
-        StartCoroutine(Knockback(knockback, hitpause));
+        StartCoroutine(Knockback(knockback, hitpause, dampened));
     }
 
     IEnumerator Hitpause(float duration) {
@@ -180,9 +214,32 @@ public class PlayerHandler : MonoBehaviour
         yield return new WaitForSeconds(duration);
         animator.speed = 1;
     }
-    IEnumerator Knockback(Vector2 knockback, float delay) {
+    IEnumerator Knockback(Vector2 knockback, float delay, bool dampened) {
         move.Zero();
         yield return new WaitForSeconds(delay);
-        move.ApplyKnockback(knockback, (int)(knockback.x / Mathf.Abs(knockback.x)));
+        move.ApplyKnockback(knockback, (int)(knockback.x / Mathf.Abs(knockback.x)), dampened);
+    }
+
+    public void OnHit() {
+        int dir = (int)Mathf.Sign(hurtboxHandler.transform.position.x - hurtboxHandler.GetLastCollision().transform.position.x);
+        if (countering) {
+            canCounter = true;
+            SetCancellable();
+            DoKnockback(new Vector2(dir * 10, 5), 0.05f);
+        } else if (!immune) {
+            down = Time.time + 1f;
+            animator.SetTrigger("hurt");
+            animator.SetBool("down", Time.time < down);
+            DoKnockback(new Vector2(dir * 30, 20), 0.2f, false);
+            immune = true;
+        }
+    }
+
+    private void SetCounter() {
+        countering = true;
+    }
+
+    private void UnsetCounter() {
+        countering = false;
     }
 }

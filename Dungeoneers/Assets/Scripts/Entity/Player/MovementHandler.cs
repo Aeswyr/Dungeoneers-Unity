@@ -53,11 +53,15 @@ public class MovementHandler : MonoBehaviour
         moving = true;
     }
 
-    public void ApplyKnockback(Vector2 velocity, int dir) {
+    public void ApplyKnockback(Vector2 velocity, int dir, bool dampened) {
         rbody.velocity = velocity;
         this.dir = dir;
-        StartDeceleration();
+        if (dampened)
+            StartDeceleration();
+        else
+            moving = true;
     }
+    
     
     public void Zero() {
         rbody.velocity = Vector2.zero;

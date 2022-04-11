@@ -8,7 +8,10 @@ public class RottedClaymanController : MonoBehaviour
     [SerializeField] private GroundedCheck ground;
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject hurtbox;
     bool attacking = false;
+    int facing;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -27,8 +30,10 @@ public class RottedClaymanController : MonoBehaviour
             }
         }
 
-        if (dir != 0 && !attacking)
-            sprite.flipX = dir < 0;   
+        if (dir != 0 && !attacking) {
+            facing = (int)dir;
+            sprite.flipX = dir < 0;  
+        } 
 
         if (dist > 4 && !attacking) {
             rbody.velocity = new Vector2(dir, 0);
@@ -44,4 +49,14 @@ public class RottedClaymanController : MonoBehaviour
     private void ResetAttacking() {
         attacking = false;
     }
-}
+
+    private void AttackPhase1() {
+        GameObject hitbox = GameMaster.Instance.CreateHitbox(6, 6, hurtbox, 1f/6);
+        hitbox.transform.position = transform.position + new Vector3(facing * 3, 0, 0);
+    }
+
+    private void AttackPhase2() {
+        GameObject hitbox = GameMaster.Instance.CreateHitbox(6, 6, hurtbox);
+        hitbox.transform.position = transform.position + new Vector3(facing * -3, 0, 0);
+    }
+ }

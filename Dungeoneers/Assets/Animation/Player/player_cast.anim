@@ -74,18 +74,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0
-    functionName: LockMovement
-    data: 
-    objectReferenceParameter: {fileID: 11500000, guid: c112a646bbcf94d4fbd6208466897165, type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.33333334
-    functionName: UnlockMovement
-    data: 
-    objectReferenceParameter: {fileID: 11500000, guid: c112a646bbcf94d4fbd6208466897165, type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []
