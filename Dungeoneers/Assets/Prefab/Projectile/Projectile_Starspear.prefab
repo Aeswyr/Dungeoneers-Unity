@@ -20,6 +20,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -730497881648795712, guid: 3851eac99b3145d4ca950916e319f3f3, type: 3}
+      propertyPath: vfxId
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -730497881648795712, guid: 3851eac99b3145d4ca950916e319f3f3, type: 3}
       propertyPath: deathPrefab
       value: 
       objectReference: {fileID: 0}

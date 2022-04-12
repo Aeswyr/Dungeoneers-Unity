@@ -11,7 +11,7 @@ public class ProjectileController : MonoBehaviour
     [SerializeField] private Rigidbody2D rbody;
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Owner owner;
-    [SerializeField] private GameObject deathPrefab;
+    [SerializeField] private int vfxId;
     public void Fire(int dir) {
         rbody.velocity = new Vector2(speed * dir, 0);
         sprite.flipX = dir < 0;
@@ -20,8 +20,8 @@ public class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (destroyOnContact && !owner.IsOwner(other.gameObject)) {
-            if (deathPrefab != null)
-                Instantiate(deathPrefab, transform.position, deathPrefab.transform.rotation);
+            if (vfxId != -1)
+                GameMaster.Instance.CreateVfx(vfxId).transform.position = transform.position;
             Destroy(gameObject);
         }
     }

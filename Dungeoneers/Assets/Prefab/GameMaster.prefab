@@ -58,3 +58,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitboxPrefab: {fileID: 1592395097677066578, guid: 8a505e8e489c87843990a26c178cf004, type: 3}
+  vfxPrefab: {fileID: 69000551268691732, guid: dde1e9592f65566439a8a8f68f93734e, type: 3}

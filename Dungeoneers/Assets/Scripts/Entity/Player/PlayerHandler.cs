@@ -94,7 +94,7 @@ public class PlayerHandler : MonoBehaviour
             attack_id  = (attack_id + 1) % 2;
         }
         else if (cancellable && input.skill1.pressed) {
-            if (false) {
+            if (true) {
                 animator.SetTrigger("attack");
                 animator.SetInteger("attack_id", 3);
             } else {
@@ -226,6 +226,7 @@ public class PlayerHandler : MonoBehaviour
             canCounter = true;
             SetCancellable();
             DoKnockback(new Vector2(dir * 10, 5), 0.05f);
+            GameMaster.Instance.CreateVfx(2).transform.position = transform.position;
         } else if (!immune) {
             down = Time.time + 1f;
             animator.SetTrigger("hurt");

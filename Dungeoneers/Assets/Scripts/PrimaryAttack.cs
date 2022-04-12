@@ -5,7 +5,6 @@ using UnityEngine;
 public class PrimaryAttack : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    [SerializeField] private GameObject hitsparkPrefab;
     [SerializeField] private Owner owner;
     [SerializeField] private Collider2D col;
     private PlayerHandler player;
@@ -33,7 +32,7 @@ public class PrimaryAttack : MonoBehaviour
                 break;
             }
         }
-        Instantiate(hitsparkPrefab, point, hitsparkPrefab.transform.rotation).transform.localScale = transform.localScale;
+        GameMaster.Instance.CreateVfx(0).transform.position = point;
         
         if (other.gameObject.layer == LayerMask.NameToLayer("World")) {
             force = 20;
