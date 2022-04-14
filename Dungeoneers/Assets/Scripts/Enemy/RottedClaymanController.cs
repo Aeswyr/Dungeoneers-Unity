@@ -52,11 +52,13 @@ public class RottedClaymanController : MonoBehaviour
 
     private void AttackPhase1() {
         GameObject hitbox = GameMaster.Instance.CreateHitbox(6, 6, hurtbox, 1f/6);
+        hitbox.GetComponent<Owner>().SetOwner(hurtbox);
         hitbox.transform.position = transform.position + new Vector3(facing * 3, 0, 0);
     }
 
     private void AttackPhase2() {
         GameObject hitbox = GameMaster.Instance.CreateHitbox(6, 6, hurtbox);
+        hitbox.GetComponent<Owner>().SetOwner(hurtbox);
         hitbox.transform.position = transform.position + new Vector3(facing * -3, 0, 0);
     }
  }

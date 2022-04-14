@@ -21,13 +21,17 @@ public class PlayerHandler : MonoBehaviour
 
     private bool grounded, running, jumping, cancellable, interruptable, movable = true, countering, canCounter, lastDown;
     private bool immune = false;
-    private int attack_id = 0;
+    private int attack_id1 = 0;
+    private int attack_id2 = 1;
+    private int attack_id = -1;
+    private int offhand_id = 4; // 3 for dash
 
     private float down = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        attack_id = attack_id1;
         SetInterruptable();
         SetCancellable();
         GameMaster.Instance.RegisterPlayer(this);
@@ -68,17 +72,7 @@ public class PlayerHandler : MonoBehaviour
             running = true;
         }
 
-        if (canCounter && (input.primary.pressed || input.skill1.pressed)) {
-            animator.SetTrigger("attack");
-            animator.SetInteger("attack_id", 5);
-            GameObject smear = Instantiate(attackSlashPrefab, transform);
-            smear.GetComponent<PrimaryAttack>().Fire(facing, 2, this);
-            smear.GetComponent<Owner>().SetOwner(hurtbox.gameObject);
-            smear.GetComponent<DestroyAfterDelay>().SetLifetime(5f/12);
-            canCounter = false;
-            countering = false;
-        }
-        else if (movable &&  interruptable && grounded && input.jump.pressed) {
+        if (movable &&  interruptable && grounded && input.jump.pressed) {
             rbody.velocity = new Vector2(rbody.velocity.x, 0.15f);
             jump.StartJump();
             animator.SetTrigger("jump");
@@ -91,17 +85,29 @@ public class PlayerHandler : MonoBehaviour
             smear.GetComponent<PrimaryAttack>().Fire(facing, attack_id, this);
             smear.GetComponent<Owner>().SetOwner(hurtbox.gameObject);
             animator.SetInteger("attack_id", attack_id);
-            attack_id  = (attack_id + 1) % 2;
+
+            if (attack_id == attack_id1)
+                attack_id  = attack_id2;
+            else
+                attack_id = attack_id1;
+
+            OnCounterattack();
+        }
+        else if (canCounter && (input.skill1.pressed)) {
+            animator.SetTrigger("attack");
+            animator.SetInteger("attack_id", 5);
+            GameObject smear = Instantiate(attackSlashPrefab, transform);
+            smear.GetComponent<PrimaryAttack>().Fire(facing, 2, this);
+            smear.GetComponent<Owner>().SetOwner(hurtbox.gameObject);
+            smear.GetComponent<DestroyAfterDelay>().SetLifetime(5f/12);
+
+            OnCounterattack();
         }
         else if (cancellable && input.skill1.pressed) {
-            if (true) {
-                animator.SetTrigger("attack");
-                animator.SetInteger("attack_id", 3);
-            } else {
-                animator.SetTrigger("attack");
-                animator.SetInteger("attack_id", 4);
-            }
+            animator.SetTrigger("attack");
+            animator.SetInteger("attack_id", offhand_id);
 
+            OnCounterattack();
         }
         else if (grounded && cancellable && input.skill2.pressed) {
             animator.SetTrigger("attack");
@@ -111,6 +117,8 @@ public class PlayerHandler : MonoBehaviour
             GameObject attack = Instantiate(fireballPrefab, transform.position + new Vector3(facing * 0.25f, 0, 0), fireballPrefab.transform.rotation);
             attack.GetComponent<ProjectileController>().Fire(facing);
             attack.GetComponent<Owner>().SetOwner(hurtbox.gameObject);
+
+            OnCounterattack();
         }
         else if (grounded && cancellable && input.skill3.pressed) {
             animator.SetTrigger("attack");
@@ -120,6 +128,8 @@ public class PlayerHandler : MonoBehaviour
             GameObject attack = Instantiate(starspearPrefab, transform.position + new Vector3(facing * 3, 1.5f, 0), starspearPrefab.transform.rotation);
             attack.GetComponent<ProjectileController>().Fire(facing);
             attack.GetComponent<Owner>().SetOwner(hurtbox.gameObject);
+
+            OnCounterattack();
         }
         lastDown = Time.time < down;
     }
@@ -139,6 +149,12 @@ public class PlayerHandler : MonoBehaviour
         }
     }
 
+    private void OnCounterattack() {
+        if (canCounter) {
+            canCounter = false;
+            countering = false;
+        }
+    }
     private void SetCancellable() {
         cancellable = true;
         animator.SetBool("cancellable", cancellable);

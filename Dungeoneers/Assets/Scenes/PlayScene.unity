@@ -522,6 +522,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameMaster
       objectReference: {fileID: 0}
+    - target: {fileID: 8801116409243333617, guid: 2f41b9d08eecb124ea595a78e7d6e501, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 175308792}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f41b9d08eecb124ea595a78e7d6e501, type: 3}
 --- !u!224 &1126668832 stripped

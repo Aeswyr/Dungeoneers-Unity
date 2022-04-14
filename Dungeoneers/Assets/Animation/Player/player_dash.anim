@@ -79,6 +79,6 @@ AnimationClip:
     functionName: SkillMovement
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: c112a646bbcf94d4fbd6208466897165, type: 3}
-    floatParameter: 50
+    floatParameter: 60
     intParameter: 0
     messageOptions: 0

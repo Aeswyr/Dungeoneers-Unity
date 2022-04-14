@@ -7,6 +7,7 @@ public class GameMaster : Singleton<GameMaster>
 
     [SerializeField] private GameObject hitboxPrefab;
     [SerializeField] private GameObject vfxPrefab;
+    [SerializeField] private GameObject canvas;
 
     List<PlayerHandler> players = new List<PlayerHandler>();
     public void RegisterPlayer(PlayerHandler player) {
@@ -30,9 +31,12 @@ public class GameMaster : Singleton<GameMaster>
         anim.SetInteger("id", id);
         anim.Update(Time.deltaTime);
         float len = anim.GetCurrentAnimatorStateInfo(0).length;
-        Debug.Log($"new vfx with length {len}");
         prefab.GetComponent<DestroyAfterDelay>().SetLifetime(len);
 
         return prefab;
+    }
+
+    public GameObject GetCanvas() {
+        return canvas;
     }
 }
