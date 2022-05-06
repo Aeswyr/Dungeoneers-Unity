@@ -1,13 +1,16 @@
 using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 
 public class ResourceController : MonoBehaviour
 {
     private int hpMax;
-    private int hp;
+    private int hp, armor;
     [SerializeField] private RectTransform bar;
     [SerializeField] private RectTransform background;
     [SerializeField] private Image barDisp;
+    [SerializeField] private GameObject armorObj;
+    [SerializeField] private TextMeshProUGUI armorText;
 
 
 
@@ -29,5 +32,14 @@ public class ResourceController : MonoBehaviour
     public void SetHP(int val) {
         hp = val;
         barDisp.fillAmount = (float)hp / hpMax;
+    }
+
+    public void SetArmor(int val) {
+        armor = val;
+        if (armor > 0) {
+            armorText.text = armor.ToString();
+            armorObj.SetActive(true);
+        } else
+            armorObj.SetActive(false);
     }
 }

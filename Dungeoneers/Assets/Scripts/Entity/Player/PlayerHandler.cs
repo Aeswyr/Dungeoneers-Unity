@@ -24,7 +24,7 @@ public class PlayerHandler : MonoBehaviour
     private int attack_id1 = 0;
     private int attack_id2 = 1;
     private int attack_id = -1;
-    private int offhand_id = 4; // 3 for dash
+    private int offhand_id = 3; // 3 for dash, 4 for parry
 
     private float down = 0;
 

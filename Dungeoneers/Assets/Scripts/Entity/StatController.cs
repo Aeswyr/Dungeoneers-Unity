@@ -6,13 +6,21 @@ public class StatController : MonoBehaviour
 {
     public int health;
     public int maxHealth;
+    public int armor;
     private ResourceController resource;
     public void OnHit() {
-        health -= 1;
+        if (armor > 0) {
+            armor -= 1;
+            health -= 2;
+            resource.SetArmor(armor);
+        } else {
+            health -= 8;
+        }
         resource.SetHP(health);
     }
     public void SetResource(ResourceController resource) {
         this.resource = resource;
         resource.SetMaxHP(maxHealth);
+        resource.SetArmor(armor);
     }
 }

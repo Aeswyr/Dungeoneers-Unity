@@ -294,6 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 128
   maxHealth: 128
+  armor: 8
 --- !u!1001 &1428685413341076264
 PrefabInstance:
   m_ObjectHideFlags: 0

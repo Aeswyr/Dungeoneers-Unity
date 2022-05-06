@@ -455,6 +455,8 @@ MonoBehaviour:
   bar: {fileID: 1158938106705008453}
   background: {fileID: 9026105951840897816}
   barDisp: {fileID: 8653736192277390734}
+  armorObj: {fileID: 9156923166987722202}
+  armorText: {fileID: 5872105264963106463}
 --- !u!1 &9156923166987722202
 GameObject:
   m_ObjectHideFlags: 0
